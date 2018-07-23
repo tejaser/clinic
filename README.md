@@ -11,3 +11,9 @@ accounts-password
 react-meteor-data
 alexwine:bootstrap-4
 bcrypt
+static-html
+
+## meteor remove
+
+blaze-html-templates
+autopublish

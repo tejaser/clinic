@@ -10,3 +10,4 @@ react-addons-pure-render-mixin
 accounts-password
 react-meteor-data
 alexwine:bootstrap-4
+bcrypt

@@ -1,9 +1,7 @@
 import React, { Component } from "react";
-import Alert from "react-s-alert";
+
 import { Redirect } from "react-router-dom";
 import { withRouter } from "react-router-dom";
-import "react-s-alert/dist/s-alert-default.css";
-import "react-s-alert/dist/s-alert-css-effects/jelly.css";
 
 class Login extends Component {
   constructor(props) {
@@ -19,14 +17,21 @@ class Login extends Component {
     let history = this.props.history;
     Meteor.loginWithPassword(username, password, function(error) {
       if (error) {
-        Alert.error(error.reason, {
-          effect: "jelly",
-          timeout: "none"
+        Bert.alert({
+          title: "Error",
+          message: error.reason,
+          type: "danger",
+          style: "growl-top-right",
+          icon: "fa-times"
         });
       } else {
-        Alert.success(
-          "Welcome Back, " + Meteor.user().profile.first_name + " !"
-        );
+        Bert.alert({
+          title: "Successful",
+          message: "Welcome, " + Meteor.user().profile.first_name + " !",
+          type: "success",
+          style: "growl-top-right",
+          icon: "fa-user"
+        });
         history.push("/admin");
       }
     });

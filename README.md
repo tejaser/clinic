@@ -12,6 +12,8 @@ react-meteor-data
 alexwine:bootstrap-4
 bcrypt
 static-html
+alanning:roles
+themeteorchef:bert
 
 ## meteor remove
 

@@ -7,6 +7,7 @@ import Authenticated from "/client/imports/Authenticated";
 import Landing from "/client/imports/Landing";
 import AdminMain from "/client/imports/AdminMain";
 import Login from "/client/imports/Login";
+import NotFound from "./NotFound";
 
 const App = props => (
   <Router>
@@ -14,6 +15,7 @@ const App = props => (
       <Route exact path="/" component={Landing} />
       <Route exact path="/login" component={Login} {...props} />
       <Authenticated path="/admin" component={AdminMain} {...props} />
+      <Route component={NotFound} />
     </Switch>
   </Router>
 );

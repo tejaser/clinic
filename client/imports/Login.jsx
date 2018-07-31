@@ -40,6 +40,13 @@ class Login extends Component {
     return (
       <div className="text-center">
         <form className="form-signin" onSubmit={this.handleSubmit.bind(this)}>
+          <img
+            className="mb-4"
+            src="/bootstrap-solid.svg"
+            alt
+            width={72}
+            height={72}
+          />
           <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
           <label htmlFor="inputEmail">Username</label>
           <input

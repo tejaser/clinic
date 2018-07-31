@@ -27,21 +27,22 @@ const App = props => (
 );
 
 export default withTracker(props => {
-  const handle = Meteor.subscribe("allUsers");
+  // const handle = Meteor.subscribe("allUsers");
 
-  // const logginIn = Meteor.loggingIn();
-  // const user = Meteor.user();
-  // const userId = Meteor.userId();
-  // const loading = Roles.subscription ? !Roles.subscription.ready() : true;
+  const loggingIn = Meteor.loggingIn();
+  const user = Meteor.user();
+  const userId = Meteor.userId();
+  const loading = Roles.subscription ? !Roles.subscription.ready() : true;
 
   return {
-    // loggingIn,
-    // loading,
-    // user,
-    // userId,
-    // loading
-    user: Meteor.user(),
-    loading: !handle.ready(),
-    users: Meteor.users.find().fetch
+    loggingIn,
+    loading,
+    user,
+    userId,
+    authenticated: !loggingIn & !!userId,
+    roles: !loading && Roles.getRolesForUser(userId)
+    // user: Meteor.user(),
+    // loading: !handle.ready(),
+    // users: Meteor.users.find().fetch
   };
 })(App);

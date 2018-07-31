@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import Header from "/client/imports/Header";
 import Sidebar from "/client/imports/Sidebar";
 import Dashboard from "/client/imports/Dashboard";
+import Staff from "/client/imports/Staff";
 import NotFound from "./NotFound";
 
 export default class AdminMain extends Component {
@@ -16,6 +17,7 @@ export default class AdminMain extends Component {
             <Sidebar />
             <Switch>
               <Route exact path="/admin" component={Dashboard} />
+              <Route exact path="/admin/staff" component={Staff} />
               <Route component={NotFound} />
             </Switch>
           </div>

@@ -12,8 +12,21 @@ export default class AdminMain extends Component {
     return (
       <div>
         <Header />
+        <p className="visible-xs">
+          <button
+            type="button"
+            className="btn btn-primary btn-xs"
+            data-toggle="offcanvas"
+            onClick={e => {
+              e.preventDefault();
+              $(".row-offcanvas").toggleClass("active");
+            }}
+          >
+            <i className="fa fa-align-left" />
+          </button>
+        </p>
         <div className="container-fluid">
-          <div className="row">
+          <div className="row row-offcanvas row-offcanvas-left">
             <Sidebar />
             <Switch>
               <Route exact path="/admin" component={Dashboard} />

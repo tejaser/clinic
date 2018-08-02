@@ -21,8 +21,6 @@ const App = props => (
 );
 
 export default withTracker(props => {
-  // const handle = Meteor.subscribe("allUsers");
-
   const loggingIn = Meteor.loggingIn();
   const user = Meteor.user();
   const userId = Meteor.userId();
@@ -35,8 +33,5 @@ export default withTracker(props => {
     userId,
     authenticated: !loggingIn & !!userId,
     roles: !loading && Roles.getRolesForUser(userId)
-    // user: Meteor.user(),
-    // loading: !handle.ready(),
-    // users: Meteor.users.find().fetch
   };
 })(App);

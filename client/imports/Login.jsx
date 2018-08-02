@@ -48,7 +48,9 @@ class Login extends Component {
             height={72}
           />
           <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
-          <label htmlFor="inputEmail">Username</label>
+          <label htmlFor="inputEmail" className="sr-only">
+            Username
+          </label>
           <input
             type="text"
             id="inputEmail"

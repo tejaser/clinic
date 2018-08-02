@@ -18,10 +18,9 @@ export default class Sidebar extends Component {
               </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
-                <span data-feather="shopping-cart" />
-                Products
-              </a>
+              <NavLink className="nav-link" to="/admin/department">
+                Department
+              </NavLink>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">

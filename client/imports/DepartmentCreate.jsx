@@ -1,19 +1,17 @@
 import React, { Component } from "react";
 
-export default class StaffCreate extends Component {
+export default class DepartmentCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      first_name: "",
-      last_name: "",
-      department: ""
+      name: ""
     };
   }
-  handleStaffSubmit(e) {
+  handleDepartmentSubmit(e) {
     e.preventDefault();
-    let newStaff = this.state;
-    // console.log(newStaff);
-    Meteor.call("staff.insert", newStaff, function(error) {
+    let newDepartment = this.state;
+    // console.log(newDepartment);
+    Meteor.call("department.insert", newDepartment, function(error) {
       if (error) {
         Bert.alert({
           title: "Error",
@@ -25,11 +23,7 @@ export default class StaffCreate extends Component {
       } else {
         Bert.alert({
           title: "Successful Add.",
-          message:
-            newStaff.first_name +
-            " " +
-            newStaff.last_name +
-            " has been added to staff.",
+          message: newDepartment.name + " is added.",
           type: "success",
           style: "growl-top-right",
           icon: "fa-user"
@@ -44,42 +38,11 @@ export default class StaffCreate extends Component {
         <div className="col">
           <div className="card" style={{ width: "18rem" }}>
             <div className="card-body">
-              <h5 className="card-title">Add new Staff Member</h5>
+              <h5 className="card-title">Add new Department</h5>
               <h6 className="card-subtitle mb-2 text-muted">
                 Please fill in the detail and click save
               </h6>
-              <form
-                id="createStaffForm"
-                onSubmit={this.handleStaffSubmit.bind(this)}
-              >
-                <div className="form-group">
-                  <label htmlFor="firstNameInput">First Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="firstNameInput"
-                    placeholder="Enter First Name here."
-                    value={this.state.first_name}
-                    onChange={e => {
-                      e.preventDefault();
-                      this.setState({ first_name: e.target.value });
-                    }}
-                  />
-                </div>
-                <div className="form-group">
-                  <label htmlFor="lastNameInput">Last Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="lastNameInput"
-                    placeholder="Enter Last Name here."
-                    value={this.state.last_name}
-                    onChange={e => {
-                      e.preventDefault();
-                      this.setState({ last_name: e.target.value });
-                    }}
-                  />
-                </div>
+              <form onSubmit={this.handleDepartmentSubmit.bind(this)}>
                 <div className="form-group">
                   <label htmlFor="departmentInput">Department Name</label>
                   <input
@@ -90,7 +53,7 @@ export default class StaffCreate extends Component {
                     value={this.state.department}
                     onChange={e => {
                       e.preventDefault();
-                      this.setState({ department: e.target.value });
+                      this.setState({ name: e.target.value });
                     }}
                   />
                 </div>

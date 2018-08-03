@@ -3,6 +3,7 @@ import { Accounts } from "meteor/accounts-base";
 
 import "/imports/api/StaffCollection";
 import "/imports/api/DepartmentCollection";
+import "/imports/api/PositionsCollection";
 
 Meteor.startup(() => {
   // code to run on server at startup

@@ -1,17 +1,19 @@
 import React, { Component } from "react";
+import Checkbox from "/client/imports/Checkbox";
 
-export default class DepartmentCreate extends Component {
+export default class PositionsCreate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ""
+      name: "",
+      isManagingPosition: false
     };
   }
-  handleDepartmentSubmit(e) {
+  handlePositionsSubmit(e) {
     e.preventDefault();
-    let newDepartment = this.state;
+    let newPosition = this.state;
     // console.log(newDepartment);
-    Meteor.call("department.insert", newDepartment, function(error) {
+    Meteor.call("positions.insert", newPosition, function(error) {
       if (error) {
         Bert.alert({
           title: "Error",
@@ -23,7 +25,7 @@ export default class DepartmentCreate extends Component {
       } else {
         Bert.alert({
           title: "Successful Add.",
-          message: newDepartment.name + " is added to Departments.",
+          message: newPosition.name + " is added to Departments.",
           type: "success",
           style: "growl-top-right",
           icon: "fa-user"
@@ -38,18 +40,18 @@ export default class DepartmentCreate extends Component {
         <div className="col">
           <div className="card" style={{ width: "18rem" }}>
             <div className="card-body">
-              <h5 className="card-title">Add new Department</h5>
+              <h5 className="card-title">Add new Positions</h5>
               <h6 className="card-subtitle mb-2 text-muted">
                 Please fill in the detail and click save
               </h6>
-              <form onSubmit={this.handleDepartmentSubmit.bind(this)}>
+              <form onSubmit={this.handlePositionsSubmit.bind(this)}>
                 <div className="form-group">
-                  <label htmlFor="departmentInput">Department Name</label>
+                  <label htmlFor="positionsInput">Position Name</label>
                   <input
                     type="text"
                     className="form-control"
-                    id="departmentInput"
-                    placeholder="Enter Department here."
+                    id="positionsInput"
+                    placeholder="Enter Position here."
                     value={this.state.name}
                     onChange={e => {
                       e.preventDefault();
@@ -57,6 +59,14 @@ export default class DepartmentCreate extends Component {
                     }}
                   />
                 </div>
+                <Checkbox
+                  label="Managing position?"
+                  handleCheckboxChange={e => {
+                    let past = this.state.isManagingPosition;
+                    this.setState({ isManagingPosition: !past });
+                  }}
+                  key="checkbox1"
+                />
                 <div className="row">
                   <button
                     type="submit"

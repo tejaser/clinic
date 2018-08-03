@@ -5,6 +5,7 @@ import { withTracker } from "meteor/react-meteor-data";
 
 import { StaffCollection } from "/imports/api/StaffCollection";
 import { DepartmentCollection } from "/imports/api/DepartmentCollection";
+import { PositionsCollection } from "/imports/api/PositionsCollection";
 
 import StaffCreate from "/client/imports/StaffCreate";
 
@@ -50,6 +51,7 @@ class Staff extends Component {
       return (
         <StaffCreate
           handler={this.toggleCreateState}
+          positions={this.props.positions}
           departments={this.props.departments}
         />
       );
@@ -95,12 +97,17 @@ class Staff extends Component {
 export default withTracker(props => {
   let staffSubscription = Meteor.subscribe("StaffCollection");
   let deptSubscription = Meteor.subscribe("DepartmentCollection");
-  const allReady = staffSubscription.ready() && deptSubscription.ready();
+  const posSubscription = Meteor.subscribe("PositionsCollection");
+  const allReady =
+    staffSubscription.ready() &&
+    deptSubscription.ready() &&
+    posSubscription.ready();
   const loading = staffSubscription ? !allReady : true;
 
   return {
     loading,
     staff: StaffCollection.find().fetch(),
-    departments: DepartmentCollection.find().fetch()
+    departments: DepartmentCollection.find().fetch(),
+    positions: PositionsCollection.find().fetch()
   };
 })(Staff);

@@ -23,10 +23,10 @@ export default class Sidebar extends Component {
               </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <NavLink className="nav-link" to="/admin/positions">
                 <span data-feather="users" />
-                Customers
-              </a>
+                Positions
+              </NavLink>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">

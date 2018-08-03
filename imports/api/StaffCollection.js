@@ -1,5 +1,6 @@
 import { Mongo } from "meteor/mongo";
 import { DepartmentCollection } from "/imports/api/DepartmentCollection";
+import { PositionsCollection } from "/imports/api/PositionsCollection";
 
 export const StaffCollection = new Mongo.Collection("StaffCollection");
 
@@ -40,6 +41,13 @@ if (Meteor.isServer) {
       let staffId = StaffCollection.insert(newStaff);
       DepartmentCollection.update(
         { _id: newStaff.deptId },
+        {
+          $inc: { counter: 1 },
+          $push: { staff: staffId }
+        }
+      );
+      PositionsCollection.update(
+        { _id: newStaff.posId },
         {
           $inc: { counter: 1 },
           $push: { staff: staffId }

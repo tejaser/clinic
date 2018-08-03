@@ -6,6 +6,7 @@ import Sidebar from "/client/imports/Sidebar";
 import Dashboard from "/client/imports/Dashboard";
 import Staff from "/client/imports/Staff";
 import Department from "/client/imports/Department";
+import Positions from "/client/imports/Positions";
 import NotFound from "./NotFound";
 
 export default class AdminMain extends Component {
@@ -33,6 +34,7 @@ export default class AdminMain extends Component {
               <Route exact path="/admin" component={Dashboard} />
               <Route exact path="/admin/staff" component={Staff} />
               <Route exact path="/admin/department" component={Department} />
+              <Route exact path="/admin/positions" component={Positions} />
               <Route component={NotFound} />
             </Switch>
           </div>

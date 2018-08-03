@@ -19,7 +19,7 @@ export default class Sidebar extends Component {
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/admin/department">
-                Department
+                Departments
               </NavLink>
             </li>
             <li className="nav-item">

@@ -1,4 +1,5 @@
 import { Mongo } from "meteor/mongo";
+import { DepartmentCollection } from "/imports/api/DepartmentCollection";
 
 export const StaffCollection = new Mongo.Collection("StaffCollection");
 
@@ -36,7 +37,15 @@ if (Meteor.isServer) {
       newStaff.createdAt = new Date();
       newStaff.createdBy = Meteor.userId();
       newStaff.active = true;
-      return StaffCollection.insert(newStaff);
+      let staffId = StaffCollection.insert(newStaff);
+      DepartmentCollection.update(
+        { _id: newStaff.deptId },
+        {
+          $inc: { counter: 1 },
+          $push: { staff: staffId }
+        }
+      );
+      return staffId;
     },
     "staff.delete": function(staffId) {
       return StaffCollection.update(

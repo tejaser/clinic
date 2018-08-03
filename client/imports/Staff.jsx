@@ -1,8 +1,11 @@
 import React, { Component } from "react";
+
 import { Link } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
 
 import { StaffCollection } from "/imports/api/StaffCollection";
+import { DepartmentCollection } from "/imports/api/DepartmentCollection";
+
 import StaffCreate from "/client/imports/StaffCreate";
 
 class Staff extends Component {
@@ -44,7 +47,12 @@ class Staff extends Component {
         </button>
       );
     } else {
-      return <StaffCreate handler={this.toggleCreateState} />;
+      return (
+        <StaffCreate
+          handler={this.toggleCreateState}
+          departments={this.props.departments}
+        />
+      );
     }
   }
   toggleCreateState(e) {
@@ -86,7 +94,13 @@ class Staff extends Component {
 
 export default withTracker(props => {
   let staffSubscription = Meteor.subscribe("StaffCollection");
-  const loading = staffSubscription ? !staffSubscription.ready() : true;
+  let deptSubscription = Meteor.subscribe("DepartmentCollection");
+  const allReady = staffSubscription.ready() && deptSubscription.ready();
+  const loading = staffSubscription ? !allReady : true;
 
-  return { loading, staff: StaffCollection.find().fetch() };
+  return {
+    loading,
+    staff: StaffCollection.find().fetch(),
+    departments: DepartmentCollection.find().fetch()
+  };
 })(Staff);

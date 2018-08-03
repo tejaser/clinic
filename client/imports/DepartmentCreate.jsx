@@ -23,7 +23,7 @@ export default class DepartmentCreate extends Component {
       } else {
         Bert.alert({
           title: "Successful Add.",
-          message: newDepartment.name + " is added.",
+          message: newDepartment.name + " is added to Departments.",
           type: "success",
           style: "growl-top-right",
           icon: "fa-user"

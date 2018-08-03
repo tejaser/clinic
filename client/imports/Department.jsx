@@ -18,10 +18,11 @@ class Department extends Component {
     if (department.length === 0) {
       return null;
     } else {
-      return department.map((member, index) => (
+      return department.map((dept, index) => (
         <tr key={index}>
           <th scope="row">{index + 1}</th>
-          <td>{member.name}</td>
+          <td>{dept.name}</td>
+          <td>{dept.counter}</td>
         </tr>
       ));
     }
@@ -70,6 +71,7 @@ class Department extends Component {
             <tr>
               <th scope="col">#</th>
               <th scope="col">Department</th>
+              <th scope="col">Size</th>
             </tr>
           </thead>
           <tbody>{this.renderDepartmentTable()}</tbody>

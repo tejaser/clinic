@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Select from "react-select";
 
 export default class StaffCreate extends Component {
   constructor(props) {
@@ -6,7 +7,8 @@ export default class StaffCreate extends Component {
     this.state = {
       first_name: "",
       last_name: "",
-      department: ""
+      department: "",
+      deptId: ""
     };
   }
   handleStaffSubmit(e) {
@@ -39,6 +41,9 @@ export default class StaffCreate extends Component {
     this.props.handler();
   }
   render() {
+    let depts = this.props.departments.map((dept, index) => {
+      return { label: dept.name, value: dept._id };
+    });
     return (
       <div className="row">
         <div className="col">
@@ -81,16 +86,15 @@ export default class StaffCreate extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <label htmlFor="departmentInput">Department Name</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="departmentInput"
-                    placeholder="Enter Department here."
-                    value={this.state.department}
+                  <Select
+                    name="form-dept-select"
+                    options={depts}
+                    defaultValue={{ label: "Select Dept", value: 0 }}
                     onChange={e => {
-                      e.preventDefault();
-                      this.setState({ department: e.target.value });
+                      this.setState({
+                        department: e.label,
+                        deptId: e.value
+                      });
                     }}
                   />
                 </div>

@@ -37,8 +37,19 @@ if (Meteor.isServer) {
     "department.insert": function(newDepartment) {
       newDepartment.createdAt = new Date();
       newDepartment.createdBy = Meteor.userId();
+      newDepartment.counter = 0;
       newDepartment.active = true;
+      newDepartment.staff = [];
       return DepartmentCollection.insert(newDepartment);
+    },
+    "department.addStaff": function(deptId, staffId) {
+      return DepartmentCollection.update(
+        { _id: deptId },
+        {
+          $inc: { counter: 1 },
+          $push: { staff: staffId }
+        }
+      );
     },
     "department.delete": function(departmentId) {
       return DepartmentCollection.update(

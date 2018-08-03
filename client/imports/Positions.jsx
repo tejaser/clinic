@@ -30,8 +30,8 @@ class Positions extends Component {
 
   toggleCreateState(e) {
     // e.preventDefault();
-    let toggle = !this.state.isCreatingDepartment;
-    this.setState({ isCreatingDepartment: toggle });
+    let toggle = !this.state.isCreatingPositions;
+    this.setState({ isCreatingPositions: toggle });
   }
 
   renderCreatePositionsArea() {

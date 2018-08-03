@@ -25,7 +25,7 @@ export default class PositionsCreate extends Component {
       } else {
         Bert.alert({
           title: "Successful Add.",
-          message: newPosition.name + " is added to Departments.",
+          message: newPosition.name + " is added to Positions Available.",
           type: "success",
           style: "growl-top-right",
           icon: "fa-user"

@@ -13,11 +13,6 @@ export default class Sidebar extends Component {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink exact className="nav-link" to="/admin/staff">
-                Staff
-              </NavLink>
-            </li>
-            <li className="nav-item">
               <NavLink className="nav-link" to="/admin/department">
                 Departments
               </NavLink>
@@ -26,6 +21,16 @@ export default class Sidebar extends Component {
               <NavLink className="nav-link" to="/admin/positions">
                 <span data-feather="users" />
                 Positions
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink exact className="nav-link" to="/admin/staff">
+                Staff
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink exact className="nav-link" to="/admin/users">
+                Users
               </NavLink>
             </li>
             <li className="nav-item">

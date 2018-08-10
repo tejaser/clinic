@@ -7,6 +7,7 @@ import Dashboard from "/client/imports/Dashboard";
 import Staff from "/client/imports/Staff";
 import Department from "/client/imports/Department";
 import Positions from "/client/imports/Positions";
+import Users from "/client/imports/Users";
 import NotFound from "./NotFound";
 
 export default class AdminMain extends Component {
@@ -32,9 +33,10 @@ export default class AdminMain extends Component {
             <Sidebar />
             <Switch>
               <Route exact path="/admin" component={Dashboard} />
-              <Route exact path="/admin/staff" component={Staff} />
               <Route exact path="/admin/department" component={Department} />
               <Route exact path="/admin/positions" component={Positions} />
+              <Route exact path="/admin/staff" component={Staff} />
+              <Route exact path="/admin/users" component={Users} />
               <Route component={NotFound} />
             </Switch>
           </div>

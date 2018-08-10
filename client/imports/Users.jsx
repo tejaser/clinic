@@ -26,6 +26,7 @@ class Users extends Component {
           <td>{user.username}</td>
           <td>{user.profile.department}</td>
           <td>{user.emails[0].address}</td>
+          <td>{user.roles[0]}</td>
         </tr>
       ));
     }
@@ -83,6 +84,7 @@ class Users extends Component {
               <th scope="col">Username</th>
               <th scope="col">Department</th>
               <th scope="col">Email Address</th>
+              <th scope="col">Role</th>
             </tr>
           </thead>
           <tbody>{this.renderUsersTable()}</tbody>
@@ -97,12 +99,16 @@ export default withTracker(props => {
   let usersSubscription = Meteor.subscribe("allUsers");
   let deptSubscription = Meteor.subscribe("DepartmentCollection");
 
-  const allReady = usersSubscription.ready() && deptSubscription.ready();
+  const allReady =
+    usersSubscription.ready() &&
+    deptSubscription.ready() &&
+    Roles.subscription.ready();
   const loading = usersSubscription ? !allReady : true;
 
   return {
     loading,
     users: Meteor.users.find().fetch(),
+    // roles: Meteor.roles.find.fetch(),
     departments: DepartmentCollection.find().fetch()
   };
 })(Users);

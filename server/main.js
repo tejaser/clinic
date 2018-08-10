@@ -35,7 +35,9 @@ Meteor.startup(() => {
           clinic: newUser.clinic
         }
       });
-      Roles.addUsersToRoles(cResult, "client");
+      for (var index in newUser.roles) {
+        Roles.addUsersToRoles(cResult, newUser.roles[index].label);
+      }
       return true;
     },
     "users.addRole": function(userId, newRole) {

@@ -8,9 +8,12 @@ export default class UsersCreate extends Component {
       first_name: "",
       last_name: "",
       username: "",
+      password: "",
       department: "",
       dept_id: "",
-      email_id: ""
+      email_id: "",
+      role: "",
+      clinic: "Data Science"
     };
   }
   handleUsersSubmit(e) {
@@ -94,6 +97,20 @@ export default class UsersCreate extends Component {
                     onChange={e => {
                       e.preventDefault();
                       this.setState({ username: e.target.value });
+                    }}
+                  />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="passwordInput">Password</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="userInput"
+                    placeholder="Enter password."
+                    value={this.state.password}
+                    onChange={e => {
+                      e.preventDefault();
+                      this.setState({ password: e.target.value });
                     }}
                   />
                 </div>

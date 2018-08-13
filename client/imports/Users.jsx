@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
 
 import UsersCreate from "/client/imports/UsersCreate";
-import { DepartmentCollection } from "./../../imports/api/DepartmentCollection";
 
 class Users extends Component {
   constructor(props) {
@@ -15,6 +14,7 @@ class Users extends Component {
   }
   renderUsersTable() {
     let users = this.props.users;
+    // console.log(users);
     if (users.length === 0) {
       return null;
     } else {
@@ -24,7 +24,6 @@ class Users extends Component {
           <td>{user.profile.first_name}</td>
           <td>{user.profile.last_name}</td>
           <td>{user.username}</td>
-          <td>{user.profile.department}</td>
           <td>{user.emails[0].address}</td>
           <td>{user.roles}</td>
         </tr>
@@ -50,7 +49,6 @@ class Users extends Component {
       return (
         <UsersCreate
           handler={this.toggleCreateState}
-          departments={this.props.departments}
           roles={this.props.roles}
         />
       );
@@ -63,54 +61,58 @@ class Users extends Component {
   }
 
   render() {
-    return (
-      <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-3">
-        <h1>Users Page</h1>
-        <nav aria-label="breadcrumb">
-          <ol className="breadcrumb">
-            <li className="breadcrumb-item">
-              <Link to="/admin">Dashboard</Link>
-            </li>
-            <li className="breadcrumb-item active" aria-current="page">
-              Users
-            </li>
-          </ol>
-        </nav>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">First Name</th>
-              <th scope="col">Last Name</th>
-              <th scope="col">Username</th>
-              <th scope="col">Department</th>
-              <th scope="col">Email Address</th>
-              <th scope="col">Role</th>
-            </tr>
-          </thead>
-          <tbody>{this.renderUsersTable()}</tbody>
-        </table>
-        {this.renderCreateUsersArea()}
-      </div>
-    );
+    if (!this.props.loading) {
+      return (
+        <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-3">
+          <h1>Users Page</h1>
+          <nav aria-label="breadcrumb">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+                <Link to="/admin">Dashboard</Link>
+              </li>
+              <li className="breadcrumb-item active" aria-current="page">
+                Users
+              </li>
+            </ol>
+          </nav>
+          <table className="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Username</th>
+                <th scope="col">Email Address</th>
+                <th scope="col">Role</th>
+              </tr>
+            </thead>
+            <tbody>{this.renderUsersTable()}</tbody>
+          </table>
+          {this.renderCreateUsersArea()}
+        </div>
+      );
+    } else {
+      return (
+        <div className="col-sm-9 ml-sm-auto col-md-10 pt-3">
+          <span>
+            <i className="fa fa-spin"> loading .. </i>
+          </span>
+        </div>
+      );
+    }
   }
 }
 
 export default withTracker(props => {
   let usersSubscription = Meteor.subscribe("allUsers");
   let rolesSubscriptioin = Meteor.subscribe("allRoles");
-  let deptSubscription = Meteor.subscribe("DepartmentCollection");
 
-  const eachReady =
-    usersSubscription.ready() &&
-    deptSubscription.ready() &&
-    rolesSubscriptioin.ready();
+  const eachReady = usersSubscription.ready() && rolesSubscriptioin.ready();
   const loading = usersSubscription ? !eachReady : true;
 
   return {
     loading,
     users: Meteor.users.find().fetch(),
-    roles: Meteor.roles.find().fetch(),
-    departments: DepartmentCollection.find().fetch()
+    roles: Meteor.roles.find().fetch()
   };
 })(Users);

@@ -41,7 +41,7 @@ Meteor.startup(() => {
         }
       });
       for (var index in newUser.roles) {
-        Roles.addUsersToRoles(cResult, newUser.roles[index].label);
+        Roles.addUsersToRoles(cResult, newUser.roles[index]);
       }
       return true;
     },

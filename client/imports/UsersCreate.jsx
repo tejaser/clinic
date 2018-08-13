@@ -10,8 +10,6 @@ export default class UsersCreate extends Component {
       username: "",
       password: "",
       confirmPassword: "",
-      department: "",
-      deptId: "",
       email_id: "",
       roles: ["client"],
       clinic: "Data Science"
@@ -24,14 +22,13 @@ export default class UsersCreate extends Component {
       let newUser = {
         username: this.state.username,
         email: this.state.email_id,
-        department: this.state.department,
+        password: this.state.password,
         roles: this.state.roles,
         first_name: this.state.first_name,
         last_name: this.state.last_name,
         clinic: this.state.clinic
       };
-      console.log(newUser);
-      Meteor.call("user.add", newUser, function(error) {
+      Meteor.call("users.add", newUser, function(error) {
         if (error) {
           Bert.alert({
             title: "Error",
@@ -52,6 +49,7 @@ export default class UsersCreate extends Component {
       });
       this.props.handler();
     } else {
+      $("#createUserCard").animateCss("shake");
       Bert.alert({
         title: "Error",
         message: "Passwords do not match.",
@@ -62,23 +60,19 @@ export default class UsersCreate extends Component {
     }
   }
   render() {
-    let depts = this.props.departments.map((dept, index) => {
-      return {
-        label: dept.name,
-        value: dept._id
-      };
-    });
-
     return (
       <div className="row">
         <div className="col-12">
-          <div className="card">
+          <div className="card" id="createUserCard">
             <div className="card-body">
               <h5 className="card-title">Add new Users</h5>
               <h6 className="card-subtitle mb-2 text-muted">
                 Please fill in the detail and click save
               </h6>
-              <form onSubmit={this.handleUsersSubmit.bind(this)}>
+              <form
+                onSubmit={this.handleUsersSubmit.bind(this)}
+                id="createUserForm"
+              >
                 <div className="row">
                   <div className="col">
                     <div className="form-group">
@@ -132,12 +126,31 @@ export default class UsersCreate extends Component {
                   </div>
                   <div className="col">
                     <div className="form-group">
+                      <label htmlFor="userInput">Email Id</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="email"
+                        placeholder="Enter Email Id."
+                        value={this.state.email_id}
+                        onChange={e => {
+                          e.preventDefault();
+                          this.setState({ email_id: e.target.value });
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="row">
+                  <div className="col">
+                    <div className="form-group">
                       <label htmlFor="passwordInput">Password</label>
                       <input
                         type="password"
                         className="form-control"
                         id="password"
                         placeholder="Enter password."
+                        autoComplete="off"
                         value={this.state.password}
                         onChange={e => {
                           e.preventDefault();
@@ -155,63 +168,33 @@ export default class UsersCreate extends Component {
                         id="cPasswordInput"
                         placeholder="Enter password."
                         value={this.state.confirmPassword}
+                        autoComplete="off"
                         onChange={e => {
                           e.preventDefault();
-                          this.setState({ confirmPassword: e.target.value });
-                        }}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="row">
-                  <div className="col">
-                    <div className="form-group">
-                      <label htmlFor="departmentSelect">Department</label>
-                      <Select
-                        name="form-dept-select"
-                        options={depts}
-                        defaultValue={{ label: "Select Department", value: 0 }}
-                        onChange={e => {
                           this.setState({
-                            department: e.label,
-                            deptId: e.value
+                            confirmPassword: e.target.value
                           });
                         }}
                       />
                     </div>
                   </div>
-                  <div className="col">
-                    <div className="form-group">
-                      <label htmlFor="userInput">Email Id</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="email"
-                        placeholder="Enter Email Id."
-                        value={this.state.email_id}
-                        onChange={e => {
-                          e.preventDefault();
-                          this.setState({ email_id: e.target.value });
-                        }}
-                      />
-                    </div>
-                  </div>
                 </div>
-
                 <div className="row">
-                  <button
-                    type="submit"
-                    className="col-md-5 col-mb-3 btn btn-primary"
-                  >
-                    Save
-                  </button>
-                  <a
-                    href="#"
-                    className="col-md-5 col-mb-3 card-link"
-                    onClick={this.props.handler}
-                  >
-                    Cancel
-                  </a>
+                  <div className="col">
+                    <button
+                      type="submit"
+                      className="col-md-5 col-mb-3 btn btn-primary"
+                    >
+                      Save
+                    </button>
+                    <a
+                      href="#"
+                      className="col-md-5 col-mb-3 card-link"
+                      onClick={this.props.handler}
+                    >
+                      Cancel
+                    </a>
+                  </div>
                 </div>
               </form>
             </div>

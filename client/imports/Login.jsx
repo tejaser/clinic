@@ -11,12 +11,45 @@ class Login extends Component {
       password: ""
     };
   }
+  componentDidMount() {
+    $.fn.extend({
+      animateCss: function(animationName, callback) {
+        var animationEnd = (function(el) {
+          var animations = {
+            animation: "animationend",
+            OAnimation: "oAnimationEnd",
+            MozAnimation: "mozAnimationEnd",
+            WebkitAnimation: "webkitAnimationEnd"
+          };
+
+          for (var t in animations) {
+            if (el.style[t] !== undefined) {
+              return animations[t];
+            }
+          }
+        })(document.createElement("div"));
+
+        this.addClass("animated " + animationName).one(
+          animationEnd,
+          function() {
+            $(this).removeClass("animated " + animationName);
+
+            if (typeof callback === "function") callback();
+          }
+        );
+
+        return this;
+      }
+    });
+  }
+
   handleSubmit(e) {
     e.preventDefault();
     let { username, password } = this.state;
     let history = this.props.history;
     Meteor.loginWithPassword(username, password, function(error) {
       if (error) {
+        $("#inputLogin").animateCss("shake");
         Bert.alert({
           title: "Error",
           message: error.reason,
@@ -38,7 +71,7 @@ class Login extends Component {
   }
   render() {
     return (
-      <div className="text-center">
+      <div className="text-center" id="inputLogin">
         <form className="form-signin" onSubmit={this.handleSubmit.bind(this)}>
           <img
             className="mb-4"
@@ -72,6 +105,7 @@ class Login extends Component {
             id="inputPassword"
             className="form-control"
             placeholder="Password"
+            autoComplete="off"
             required
             value={this.state.password}
             onChange={e => {

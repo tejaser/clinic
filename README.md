@@ -26,6 +26,8 @@ themeteorchef:bert
 
 meteortoys:allthings
 
+natestrauser:animate-css
+
 ## meteor remove
 
 blaze-html-templates

@@ -10,6 +10,11 @@ Meteor.startup(() => {
   Meteor.publish("allUsers", function() {
     return Meteor.users.find({});
   });
+
+  Meteor.publish("allRoles", function() {
+    return Meteor.roles.find({});
+  });
+
   if (Meteor.users.find().count() === 0) {
     let cResult = Accounts.createUser({
       username: "admin",

@@ -26,7 +26,7 @@ class Users extends Component {
           <td>{user.username}</td>
           <td>{user.profile.department}</td>
           <td>{user.emails[0].address}</td>
-          <td>{user.roles[0]}</td>
+          <td>{user.roles}</td>
         </tr>
       ));
     }
@@ -51,6 +51,7 @@ class Users extends Component {
         <UsersCreate
           handler={this.toggleCreateState}
           departments={this.props.departments}
+          roles={this.props.roles}
         />
       );
     }
@@ -97,18 +98,19 @@ class Users extends Component {
 
 export default withTracker(props => {
   let usersSubscription = Meteor.subscribe("allUsers");
+  let rolesSubscriptioin = Meteor.subscribe("allRoles");
   let deptSubscription = Meteor.subscribe("DepartmentCollection");
 
-  const allReady =
+  const eachReady =
     usersSubscription.ready() &&
     deptSubscription.ready() &&
-    Roles.subscription.ready();
-  const loading = usersSubscription ? !allReady : true;
+    rolesSubscriptioin.ready();
+  const loading = usersSubscription ? !eachReady : true;
 
   return {
     loading,
     users: Meteor.users.find().fetch(),
-    // roles: Meteor.roles.find.fetch(),
+    roles: Meteor.roles.find().fetch(),
     departments: DepartmentCollection.find().fetch()
   };
 })(Users);

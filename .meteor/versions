@@ -76,6 +76,7 @@ mongo-dev-server@1.1.0
 mongo-id@1.0.7
 msavin:jetsetter@4.0.0
 msavin:mongol@7.0.1
+natestrauser:animate-css@3.5.1
 npm-bcrypt@0.9.3
 npm-mongo@3.0.7
 observe-sequence@1.0.16

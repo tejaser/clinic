@@ -14,6 +14,10 @@ class Users extends Component {
   }
   renderUsersTable() {
     let users = this.props.users;
+    var divStyle = {
+      padding: "0px",
+      margin: "0px"
+    };
     // console.log(users);
     if (users.length === 0) {
       return null;
@@ -25,7 +29,17 @@ class Users extends Component {
           <td>{user.profile.last_name}</td>
           <td>{user.username}</td>
           <td>{user.emails[0].address}</td>
-          <td>{user.roles}</td>
+          <td>
+            {user.roles.length > 1 ? (
+              <ul style={divStyle}>
+                {user.roles.map((role, index) => (
+                  <li style={divStyle}> {role} </li>
+                ))}
+              </ul>
+            ) : (
+              user.roles
+            )}
+          </td>
         </tr>
       ));
     }

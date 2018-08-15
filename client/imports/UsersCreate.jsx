@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Creatable } from "react-select";
 
 export default class UsersCreate extends Component {
   constructor(props) {
@@ -10,7 +11,8 @@ export default class UsersCreate extends Component {
       password: "",
       confirmPassword: "",
       email_id: "",
-      roles: ["client"],
+      // roles: ["client"],
+      roles: [],
       clinic: "Data Science"
     };
   }
@@ -27,6 +29,7 @@ export default class UsersCreate extends Component {
         last_name: this.state.last_name,
         clinic: this.state.clinic
       };
+      // console.log(this.state.roles);
       Meteor.call("users.add", newUser, function(error) {
         if (error) {
           Bert.alert({
@@ -59,6 +62,10 @@ export default class UsersCreate extends Component {
     }
   }
   render() {
+    let roles = this.props.roles.map((role, index) => {
+      return { label: role.name, value: role.name };
+    });
+    // console.log(roles);
     return (
       <div className="row">
         <div className="col-12">
@@ -125,6 +132,22 @@ export default class UsersCreate extends Component {
                   </div>
                   <div className="col">
                     <div className="form-group">
+                      <label htmlFor="roleSelect">Roles</label>
+                      <Creatable
+                        name="form-role-select"
+                        isMulti
+                        options={roles}
+                        onChange={e => {
+                          // console.log(e);
+                          let element = e;
+                          // console.log(element);
+                          this.setState({ roles: e });
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col">
+                    <div className="form-group">
                       <label htmlFor="userInput">Email Id</label>
                       <input
                         type="text"
@@ -148,7 +171,7 @@ export default class UsersCreate extends Component {
                         type="password"
                         className="form-control"
                         id="password"
-                        placeholder="Enter password."
+                        placeholder="Enter Password."
                         autoComplete="off"
                         value={this.state.password}
                         onChange={e => {
@@ -165,7 +188,7 @@ export default class UsersCreate extends Component {
                         type="password"
                         className="form-control"
                         id="cPasswordInput"
-                        placeholder="Enter password."
+                        placeholder="Confirm password."
                         value={this.state.confirmPassword}
                         autoComplete="off"
                         onChange={e => {

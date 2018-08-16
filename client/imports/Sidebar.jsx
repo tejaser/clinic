@@ -72,9 +72,16 @@ export default class Sidebar extends Component {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <a
+                className="nav-link"
+                href="#"
+                onClick={e => {
+                  e.preventDefault();
+                  Meteor.logout();
+                }}
+              >
                 <span data-feather="file-text" />
-                Year-end sale
+                Log out
               </a>
             </li>
           </ul>

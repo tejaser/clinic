@@ -30,15 +30,11 @@ class Users extends Component {
           <td>{user.username}</td>
           <td>{user.emails[0].address}</td>
           <td>
-            {user.roles.length > 1 ? (
-              <ul style={divStyle}>
-                {user.roles.map((role, index) => (
-                  <li style={divStyle}> {role} </li>
-                ))}
-              </ul>
-            ) : (
-              user.roles
-            )}
+            {user.roles.map((role, index) => (
+              <div key={index}>
+                <span className="badge badge-pill badge-info">{role}</span>&nbsp;
+              </div>
+            ))}
           </td>
         </tr>
       ));

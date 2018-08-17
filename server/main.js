@@ -11,6 +11,10 @@ Meteor.startup(() => {
     return Meteor.users.find({});
   });
 
+  Meteor.publish("allClients", function() {
+    return Roles.getUsersInRole("client");
+  });
+
   Meteor.publish("allRoles", function() {
     return Meteor.roles.find({});
   });
@@ -40,7 +44,7 @@ Meteor.startup(() => {
           clinic: newUser.clinic
         }
       });
-      for (var index in newUser.roles) {
+      for (let index in newUser.roles) {
         Roles.addUsersToRoles(cResult, newUser.roles[index].label);
       }
       return true;

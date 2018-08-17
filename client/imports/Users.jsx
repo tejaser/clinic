@@ -14,11 +14,7 @@ class Users extends Component {
   }
   renderUsersTable() {
     let users = this.props.users;
-    var divStyle = {
-      padding: "0px",
-      margin: "0px"
-    };
-    // console.log(users);
+    console.log(users);
     if (users.length === 0) {
       return null;
     } else {
@@ -113,7 +109,7 @@ class Users extends Component {
   }
 }
 
-export default withTracker(props => {
+export default withTracker(() => {
   let usersSubscription = Meteor.subscribe("allUsers");
   let rolesSubscriptioin = Meteor.subscribe("allRoles");
 

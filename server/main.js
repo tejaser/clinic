@@ -44,7 +44,7 @@ Meteor.startup(() => {
           clinic: newUser.clinic
         }
       });
-      for (let index in newUser.roles) {
+      for (var index in newUser.roles) {
         Roles.addUsersToRoles(cResult, newUser.roles[index].label);
       }
       return true;

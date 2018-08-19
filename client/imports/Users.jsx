@@ -8,22 +8,13 @@ class Users extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCreatingUsers: false,
-      users: []
+      isCreatingUsers: false
     };
     this.toggleCreateState = this.toggleCreateState.bind(this);
   }
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.users !== prevState.users) {
-      return {
-        users: nextProps.users
-      };
-    } else {
-      return null;
-    }
-  }
+
   renderUsersTable() {
-    let users = this.state.users;
+    let users = this.props.users;
     console.log(users);
     if (users.length === 0) {
       return null;

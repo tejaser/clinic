@@ -8,12 +8,22 @@ class Users extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isCreatingUsers: false
+      isCreatingUsers: false,
+      users: []
     };
     this.toggleCreateState = this.toggleCreateState.bind(this);
   }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.users !== prevState.users) {
+      return {
+        users: nextProps.users
+      };
+    } else {
+      return null;
+    }
+  }
   renderUsersTable() {
-    let users = this.props.users;
+    let users = this.state.users;
     console.log(users);
     if (users.length === 0) {
       return null;
@@ -26,11 +36,13 @@ class Users extends Component {
           <td>{user.username}</td>
           <td>{user.emails[0].address}</td>
           <td>
-            {user.roles.map((role, index) => (
-              <div key={index}>
-                <span className="badge badge-pill badge-info">{role}</span>&nbsp;
-              </div>
-            ))}
+            {user.roles === undefined
+              ? null
+              : user.roles.map((role, index) => (
+                  <div key={index}>
+                    <span className="badge badge-pill badge-info">{role}</span>&nbsp;
+                  </div>
+                ))}
           </td>
         </tr>
       ));

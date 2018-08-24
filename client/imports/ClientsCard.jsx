@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withTracker } from "meteor/react-meteor-data";
+import { ClientsCardCollection } from "/imports/api/ClientsCardCollection";
 
-class Clients extends Component {
+class ClientsCard extends Component {
   constructor(props) {
     super(props);
   }
-  renderClientsTable() {
+  renderClientsCardTable() {
     let clients = this.props.clients;
     //console.log(clients);
     if (clients.length === 0) {
@@ -35,14 +36,14 @@ class Clients extends Component {
     if (!this.props.loading) {
       return (
         <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-3">
-          <h1>Clients Page</h1>
+          <h1>Clients Card Page</h1>
           <nav aria-label="breadcrumb">
             <ol className="breadcrumb">
               <li className="breadcrumb-item">
                 <Link to="/admin">Dashboard</Link>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                Clients
+                Clients Card
               </li>
             </ol>
           </nav>
@@ -56,7 +57,7 @@ class Clients extends Component {
                 <th scope="col">Last Login</th>
               </tr>
             </thead>
-            <tbody>{this.renderClientsTable()}</tbody>
+            <tbody>{this.renderClientsCardTable()}</tbody>
           </table>
         </div>
       );
@@ -73,15 +74,9 @@ class Clients extends Component {
 }
 
 export default withTracker(props => {
-  let clientsSubscription = Meteor.subscribe("allClients");
-  let rolesSubscriptioin = Meteor.subscribe("allRoles");
+  let clientsCardSubscription = Meteor.subscribe("ClientsCardCollection");
 
-  const eachReady = clientsSubscription.ready() && rolesSubscriptioin.ready();
+  const loading = clientsCardSubscription ? !clientsCardSubscription : true;
 
-  const loading = eachReady ? !eachReady : true;
-
-  return {
-    loading,
-    clients: Roles.getUsersInRole("client").fetch()
-  };
-})(Clients);
+  return { loading, clientsCards: ClientsCardCollection.find().fetch() };
+})(ClientsCard);

@@ -15,7 +15,7 @@ class Users extends Component {
 
   renderUsersTable() {
     let users = this.props.users;
-    console.log(users);
+    //console.log(users);
     if (users.length === 0) {
       return null;
     } else {
